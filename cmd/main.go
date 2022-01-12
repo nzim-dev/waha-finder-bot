@@ -1,7 +1,7 @@
 package main
 
 import (
-	scrapper "github.com/nzim-dev/waha-frinder/bot/pkg/service"
+	scrapper "github.com/nzim-dev/waha-frinder/bot/pkg/scrapper"
 	"github.com/sirupsen/logrus"
 )
 
