@@ -1,7 +1,6 @@
 package bot
 
 import (
-	"fmt"
 	"os"
 
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
@@ -44,7 +43,7 @@ func InitBot() error {
 				continue
 			}
 
-			res := fmt.Sprintf("%v", scrapper.ScrapData(credentials))
+			res := info.FormatOutput(scrapper.ScrapData(credentials))
 			msg := tgbotapi.NewMessage(update.Message.Chat.ID, res)
 			msg.ReplyToMessageID = update.Message.MessageID
 
