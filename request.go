@@ -22,8 +22,30 @@ func NewRequest(input string) (*Request, error) {
 		return nil, err
 	}
 
-	return &Request{
+	info := &Request{
 		SearchRequest:  searchRequest,
 		LengthOfOutput: lengthOfOutput,
-	}, nil
+	}
+
+	if err := validateCredentials(info); err != nil {
+		return nil, err
+	}
+
+	return info, nil
+}
+
+func validateCredentials(credentials *Request) error {
+	if credentials.LengthOfOutput < 0 {
+		credentials.LengthOfOutput = 1
+	}
+
+	if credentials.LengthOfOutput > 15 {
+		credentials.LengthOfOutput = 15
+	}
+
+	if len(credentials.SearchRequest) < 1 {
+		return errors.New("to short search request")
+	}
+
+	return nil
 }
