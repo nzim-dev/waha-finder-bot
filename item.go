@@ -1,4 +1,4 @@
-package item
+package info
 
 //Item that we get after scraping
 type Item struct {
