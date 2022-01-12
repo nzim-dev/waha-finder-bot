@@ -49,7 +49,6 @@ func ScrapData(credentials *info.Request) []item.Item {
 	ctx, cancel := chromedp.NewContext(context.Background())
 	defer cancel()
 
-	//TODO: search field comes from bot
 	address := buildAddress(credentials.SearchRequest)
 
 	//navigate
