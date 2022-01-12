@@ -6,7 +6,8 @@ import (
 
 	"github.com/chromedp/cdproto/cdp"
 	"github.com/chromedp/chromedp"
-	item "github.com/nzim-dev/waha-frinder/bot"
+	info "github.com/nzim-dev/waha-finder-bot"
+	item "github.com/nzim-dev/waha-finder-bot"
 	"github.com/sirupsen/logrus"
 	"github.com/spf13/viper"
 )
@@ -44,13 +45,12 @@ func processOutput(infoNodes []*cdp.Node) []item.Item {
 	return res
 }
 
-func ScrapData() []item.Item {
+func ScrapData(credentials *info.Request) []item.Item {
 	ctx, cancel := chromedp.NewContext(context.Background())
 	defer cancel()
 
 	//TODO: search field comes from bot
-	search := "astartes"
-	address := buildAddress(search)
+	address := buildAddress(credentials.SearchRequest)
 
 	//navigate
 	if err := chromedp.Run(ctx, chromedp.Navigate(address())); err != nil {
@@ -65,5 +65,5 @@ func ScrapData() []item.Item {
 	}
 
 	output := processOutput(infoNodes)
-	return output
+	return output[:credentials.LengthOfOutput]
 }
