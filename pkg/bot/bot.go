@@ -29,6 +29,12 @@ func InitBot() error {
 		if update.Message != nil { // If we got a message
 			logrus.Printf("[%s] %s", update.Message.From.UserName, update.Message.Text)
 
+			if update.Message.Text == "/start" {
+				msg := tgbotapi.NewMessage(update.Message.Chat.ID, "Здравствуй, коли надо что-то найти, то просто введи свой запрос в таком формате [то, что хочешь найти],[количество выведенных статей]")
+				msg.ReplyToMessageID = update.Message.MessageID
+				bot.Send(msg)
+				continue
+			}
 			//set search credentials
 			credentials, err := info.NewRequest(update.Message.Text)
 			if err != nil {
